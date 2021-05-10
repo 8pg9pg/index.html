@@ -3,33 +3,31 @@
   <head>
     <meta charset="utf-8">
     <title></title>
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
   </head>
   <body>
-      <h1><br><a href="index.html">Pimio's Pleco</a></h1>
-          <img src="feelmio_bg.png" width="20%">
-          <p> 환영합니다!!</p>
-          <br><a href = "1 anci page.html">1.Anci</a>
-          <br><a href = "2 pleco page.html">2.Pleco</a>
-          <br><a href = "3 shrimp page.html">3.Shrimp</a>
-    <script>
-      document.querySelector('body').style.backgroundColor = ('black');
-      document.querySelector('body').style.color = ('white');
-    </script>
+    <!-- Load TensorFlow.js. This is required to use MobileNet. -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.1"> </script>
+<!-- Load the MobileNet model. -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@1.0.0"> </script>
 
-  <script>
-       var apart = document.querySelectorAll('a');
-       var i = 0;
-       while(i<apart.length){
-       apart[i].style.color = 'yellow';
-       i=i+1;
-       }
+<!-- Replace this with your image. Make sure CORS settings allow reading the image! -->
+<img id="img" src="feelmio_bg.png"></img>
 
-      </script>
-      <p>
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/ho3HbVbNErk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </P>
-      </body>
+<!-- Place your code in the script tag below. You can also use an external .js file -->
+<script>
+  // Notice there is no 'import' statement. 'mobilenet' and 'tf' is
+  // available on the index-page because of the script tag above.
 
+  const img = document.getElementById('img');
+
+  // Load the model.
+  mobilenet.load().then(model => {
+    // Classify the image.
+    model.classify(img).then(predictions => {
+      console.log('Predictions: ');
+      console.log(predictions);
+    });
+  });
+</script>
+  </body>
 </html>
